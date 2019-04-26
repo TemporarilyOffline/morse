@@ -7,7 +7,7 @@ import subprocess
 # a random set of SET words, made up of no 
 # more than MAX_LETTERS
 
-SET=25
+SET=3
 MAX_LETTERS=4
 RESULTS = []
 
@@ -18,8 +18,8 @@ for line in f:
     RESULTS.append(line.strip())
     
 random.shuffle(RESULTS)
-
-for word in RESULTS:
+TEST_SET = RESULTS[len(RESULTS)-SET:]
+for word in TEST_SET:
   subprocess.run(["./morse.py", word])
 
 f.close()
