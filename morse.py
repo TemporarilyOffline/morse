@@ -26,9 +26,11 @@ p = pyaudio.PyAudio()
 stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, output=True)
 
 def data_for_freq(frequency: float, time: float = None):
-    """get frames for a fixed frequency for a specified time or
+    """
+    get frames for a fixed frequency for a specified time or
     number of frames, if frame_count is specified, the specified
-    time is ignored"""
+    time is ignored
+    """
     frame_count = int(RATE * time)
 
     remainder_frames = frame_count % RATE
@@ -70,17 +72,13 @@ def data_for_freq(frequency: float, time: float = None):
 
 
 def play(frequency: float, time: float):
-    """
-    play a frequency for a fixed time!
-    """
+    # play a frequency for a fixed time!
     frames = data_for_freq(frequency, time)
     stream.write(frames)
 
 
 def morse_translate(phrase):
-    """
-    take incoming string and play it back as morse code
-    """
+    # take incoming string and play it back as morse code
     morsetab = {
             'A': '.-',              'a': '.-',
             'B': '-...',            'b': '-...',
@@ -131,10 +129,8 @@ def morse_translate(phrase):
       for s in range(len(morse_code)):
         if morse_code[s] == '.':
           play(TONE, DIT)
-          #time.sleep(LETTER_SPACE)
         if morse_code[s] == '-':
           play(TONE, DAH)
-          #time.sleep(LETTER_SPACE)
         if morse_code[s] == ' ':
           time.sleep(WORD_SPACE)
       #don't play letter space until after the letter is played all the way through
