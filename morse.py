@@ -9,14 +9,19 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
 
+"""
+20 wpm seems to be about
 MORSE_UNIT = .1
-
 DIT = MORSE_UNIT
 DAH = MORSE_UNIT*3
 LETTER_SPACE = MORSE_UNIT*3
-# later in the program we have an if block that would pause for WORD_SPACE and LETTER_SPACE
-# remove LETTER_SPACE here
-WORD_SPACE = MORSE_UNIT*7-LETTER_SPACE
+WORD_SPACE = MORSE_UNIT*7
+"""
+MORSE_UNIT = .1
+DIT = MORSE_UNIT
+DAH = MORSE_UNIT*3
+LETTER_SPACE = MORSE_UNIT*14
+WORD_SPACE = LETTER_SPACE*2
 
 TONE = 550
 
@@ -122,7 +127,7 @@ def morse_translate(phrase):
     # walk through string one letter at a time and play back the sound accordingly
     for c in range(len(phrase)):
       # print letter on screen
-      print (phrase[c], end='', flush=True)
+      # print (phrase[c], end='', flush=True)
       # lookup morse code of letter
       morse_code = (morsetab[phrase[c]])
       # play sound of letter
@@ -132,19 +137,22 @@ def morse_translate(phrase):
         if morse_code[s] == '-':
           play(TONE, DAH)
         if morse_code[s] == ' ':
-          time.sleep(WORD_SPACE)
+          time.sleep(WORD_SPACE-LETTER_SPACE)
       #don't play letter space until after the letter is played all the way through
       time.sleep(LETTER_SPACE) 
     
-    print ()
-      
-      
 if __name__ == "__main__":
 
-    # remove command line leaving words:
+    # remove command name leaving words:
     str(sys.argv.pop(0))
-    print ("Command Line:", " ".join(sys.argv))
-    morse_translate(" ".join(sys.argv))
+    cli = " ".join(sys.argv)
+    #print (cli)
+    morse_translate(cli)
+    answer = input()
+    if answer == cli:
+      print(f'Correct: {cli}')
+    else:
+      print(f'Try Again: {cli}')
 
 #close global stream
 stream.stop_stream()
