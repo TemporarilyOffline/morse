@@ -17,8 +17,6 @@ MORSE_UNIT = .1
 DIT = MORSE_UNIT
 DAH = MORSE_UNIT*3
 LETTER_SPACE = MORSE_UNIT*3
-# later in the program we have an if block that would pause for WORD_SPACE and LETTER_SPACE
-# remove LETTER_SPACE here
 WORD_SPACE = MORSE_UNIT*7-LETTER_SPACE
 
 TONE = 550
