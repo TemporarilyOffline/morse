@@ -24,7 +24,7 @@ WORD_SPACE = MORSE_UNIT*7-LETTER_SPACE
 TONE = 550
 ```
 
-# GOALS:
+# goals:
 Pick a target word size and play a random 25 words from the OSPD4 (included).  
 Allow for some user interaction to advance to the next word
 Allow for some user interaction to type in the word heard
